@@ -1,0 +1,36 @@
+.v a,b,c,d,e,f,g
+.i a,b,c,d,e
+.o c,g,f
+.c 1,1
+BEGIN
+t3 b,d,c
+t5 a,e,f,g,c
+t3 c,f,g
+t1 a
+t1 e
+t3 a,e,g
+t1 b
+t1 d
+t3 b,d,g
+t1 a
+t1 c
+t1 e
+t5 a,c,e,g,f
+t1 b
+t1 d
+t5 b,c,d,g,f
+t5 a,b,d,e,f
+t5 a,c,f,g,e
+t4 e,f,g,c
+t1 a
+t1 g
+t4 a,f,g,e
+t1 b
+t1 d
+t4 b,d,e,c
+t1 b
+t1 d
+t5 b,d,e,g,c
+t1 c
+t1 f
+END
