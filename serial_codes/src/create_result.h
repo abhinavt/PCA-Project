@@ -28,6 +28,7 @@ enum {
 	BIDIRECTIONAL,
 };
 
+
 vector<boost> op2in_gates;
 vector<boost> ip2op_gates;
 
@@ -42,7 +43,10 @@ toffgate ip2op_gates;
 
 /**
 * function to save sequence of toffoli gate
-*
+* @param[in]	c		Control lines
+* @param[in]	tar		target line
+* @param[in]	save_front	select whether to save in the front or back
+* @param[in]	algotype	type of algorithm being used
 */
 
 
@@ -61,8 +65,9 @@ void add_toff_gate(boost::dynamic_bitset<> >& C, int tar, bool save_front, int a
 
 /**
 * function to create output file
-*
+* 
 */
+
 
 
 void create_tfc_file(int algoType){

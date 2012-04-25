@@ -1,4 +1,12 @@
-// File I
+/**
+ * @filename  create_result.h
+ *
+ * @brief     read input file
+ *
+ * @author    Abhinav T
+ * 	      
+ */
+
 #include "read_file.h" 
 
 void read_file( vector <boost::dynamic_bitset<> >& input, vector <boost::dynamic_bitset<> >& output, int& n )
@@ -24,7 +32,6 @@ void read_file( vector <boost::dynamic_bitset<> >& input, vector <boost::dynamic
 		for( int i =0; i< (exp_n); i++ ) {	
 			input[i].resize(n);
 			output[i].resize(n);	
-//			cout<< "Size input("<<i<<"): "<< (int) input.size() << endl;
 		}
 
 		
@@ -42,7 +49,6 @@ void read_file( vector <boost::dynamic_bitset<> >& input, vector <boost::dynamic
 			}
 
 			cubes++;
- 
 		}
 
 	} else 	cout << " File Opening Error!"<< endl;
@@ -53,38 +59,7 @@ void read_file( vector <boost::dynamic_bitset<> >& input, vector <boost::dynamic
 		}
 		cout << "No. of Cubes = "<< cubes<<endl;	
 	
-	print_pla( input, output, cubes);
-/*
-	// Print input array:
-	cout<<" Printing the input array: "<<endl;
-	for ( int rows = 0 ; rows < cubes; rows++) {
-			cout << input[rows] <<" " ;  //[n- cols]
-		cout<< endl;
-	}
-	cout<< endl;
-
-
-	//Print ouput array:	
-	cout<<" Printing the output array: "<<endl;
-	for ( int rows = 0 ; rows < cubes; rows++) {
-			cout << output[rows] <<" " ; // [n- cols]
-		cout <<endl;
-	}
-
-*/	
-/*	cout<<" Printing the output array bitwise: "<<endl;
-	for ( int rows = 0 ; rows < cubes; rows++) {
-		for ( int cols =0 ; cols < (n); cols++ )  {;
-			cout << output[rows][cols] ;  //[n- cols]
-		}
-		//	cout << output[rows] <<" " ; // [n- cols]
-		cout <<endl;
-	}
-			cout <<" output[rows][cols] "<<output[0][0] <<endl ;  //[n- cols]
-			cout <<" output[rows][cols] "<<output[0][1] <<endl ;  //[n- cols]
-			cout <<" output[rows][cols] "<<output[0][2] <<endl ;  //[n- cols]
-*/
-
+//	print_pla( input, output, cubes);
 
 }
 
