@@ -4,7 +4,7 @@
 #include <includes.h>
 
 using namespace std;
-#define infile "../tb/test3.pla"
+#define infile "../tb/test4.pla"
 
 #include "print_pla.cpp"
 

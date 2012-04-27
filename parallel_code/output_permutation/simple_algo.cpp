@@ -1,8 +1,13 @@
 #include "includes.h"
 
 
-int simple_algo( vector <boost::dynamic_bitset<> >& input, vector <boost::dynamic_bitset<> >& output, int& n )
+int simple_algo( vector <boost::dynamic_bitset<> >& input, vector <boost::dynamic_bitset<> >& output, int& n, int& no_of_gates, 
+		 boost::dynamic_bitset<>& Cp, boost::dynamic_bitset<>& Cq, boost::dynamic_bitset<>& temp_Cp,
+		 boost::dynamic_bitset<>& temp_Cq, boost::dynamic_bitset<>& p, boost::dynamic_bitset<>& q)
 {
+
+
+no_of_gates =0;
 
 //cout << "@@@@@@@@@@@@@ entered simple algo routine" << endl;
 
@@ -21,6 +26,7 @@ no_of_gates = no_of_gates + output[0].count();
             for (int j=0; j< (1<<n); j++){
                 output[j].flip(i);           
             }
+	cout << "Cp for first minterm : " << Cp << endl;
 	add_toff_gate( Cp , i , true, OUTPUT_MATCHING );
         }
     }
@@ -68,11 +74,11 @@ for (int i=1; i< (1<<n) ; i++){
                      }
         	}
       	//	cout << "Cp for i : " << i << " j : " << j << " cp : " << Cp << endl;
-        	boost::dynamic_bitset<> temp_Cp(string(n,'0'));
+        //	boost::dynamic_bitset<> temp_Cp(string(n,'0'));
         	temp_Cp = Cp;   
 	//	cout << " no_of_gates get called " << endl;
 			no_of_gates++;
-		//	cout<< Cp << "\t " << j << " \t" << endl;
+	//		cout << "toffoli controls : " << Cp << endl;
 			add_toff_gate( Cp , j , true, OUTPUT_MATCHING );		
 		// Applying the toffoli corresponding to "p":
 	        if (Cp.any()){
@@ -110,12 +116,12 @@ for (int i=1; i< (1<<n) ; i++){
                              Cq.set(k);
                     }
             	}   
-        	//cout << "Cq for i : " << i << " j : " << j << " cq :" << Cq << endl;
-        	boost::dynamic_bitset<> temp_Cq(string(n,'0'));
+       //	 cout << "Cq for i : " << i << " j : " << j << " cq :" << Cq << endl;
+        //	boost::dynamic_bitset<> temp_Cq(string(n,'0'));
         	temp_Cq = Cq;   
 	//	cout << " no_of_gates get called " << endl;
 				no_of_gates++;
-		//		cout<< Cq << "\t " << j << " \t" << endl; 
+	//		cout<< "toffoli controls : " << Cp << endl;
 				add_toff_gate( Cq , j , true, OUTPUT_MATCHING );
 	
 		// Applying the toffoli corresponding to "p":
