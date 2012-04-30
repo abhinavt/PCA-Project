@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
 
 	/* creating an array to hold all the permuted indexes of output */
 //	int ** permuted_index = 0;
-	permuted_index = new int *[factorial_n/n_vars] ;
+	permuted_index = new int *[factorial_n] ;
 
 	cout << "&&&&&&&& debug &&&&&&&&&" << endl;
 
@@ -141,6 +141,15 @@ int main(int argc, char *argv[]) {
 // 		start_output_permutation(n_vars, factorial_n);
 
 //	return 0;
+
+	delete[] index;
+
+	for( int i = 0 ; i < factorial_n ; i++ )
+		delete[] permuted_index[i];
+
+	delete[] permuted_index;
+
+
 }
 
 
@@ -200,10 +209,10 @@ void *start_output_permutation(void *threadarg){
 
 	cout << " &&&&&&&&&&&&&& THREAD " << taskid <<  " is working start : " << start << "  end : " << end << endl;
 
-	while (perm_row < end){
+	while (perm_row <= end){
 		vector< boost::dynamic_bitset<> > temp_output = output;
 	
-	cout << " now thread " << taskid << " is working on permutation " << endl;
+	cout << " now thread " << taskid << " is working on permutation while perm_row : " << perm_row << endl;
 	for (int i=0; i<n_vars; i++)	
 		cout << permuted_index[perm_row][i] << " ";
 	cout << '\n';

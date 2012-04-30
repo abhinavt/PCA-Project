@@ -37,4 +37,10 @@ tf2 a c
 tf2 c a 
 tf3 a c b 
 tf3 b c a 
+tf3 a c b 
+tf2 a c 
+tf3 a c b 
+tf3 b c a 
+tf2 b c 
+tf2 c b 
 END

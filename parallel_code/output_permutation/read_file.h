@@ -4,9 +4,9 @@
 #include <includes.h>
 
 using namespace std;
-//#define infile "../tb/hm3.pla"
+#define infile "../tb/hm3.pla"
 
-#define infile "../tb/pla63mod4096.pla"
+//#define infile "../tb/pla63mod4096.pla"
 
 #include "print_pla.cpp"
 
