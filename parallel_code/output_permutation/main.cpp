@@ -60,11 +60,16 @@ int main(int argc, char *argv[]) {
 		index[n_vars-i-1] = i;
 
 	/* doing factorial to find out total number of permutation possible */
+
 	int factorial_n = factorial(n_vars);
+
+	cout << "factorial " << factorial_n << endl;
 
 	/* creating an array to hold all the permuted indexes of output */
 //	int ** permuted_index = 0;
-	permuted_index = new int *[factorial_n] ;
+	permuted_index = new int *[factorial_n/n_vars] ;
+
+	cout << "&&&&&&&& debug &&&&&&&&&" << endl;
 
 	for( int i = 0 ; i < factorial_n ; i++ )
 		permuted_index[i] = new int[n_vars];
@@ -229,11 +234,11 @@ void *start_output_permutation(void *threadarg){
 	create_tfc_file(OUTPUT_MATCHING, n_vars);
 	
 
-	cout << "final output for thread " << taskid << endl;       
+/*	cout << "final output for thread " << taskid << endl;       
 	for (int r=0; r<(1<<n_vars); r++)
 	cout << temp_output[r] << endl;
 	cout << "-------------------" << endl;
-
+*/
 	cout << " NUMBER OF GATES :: " 	<< ret << endl;
 	perm_row++;
 	row = 0;

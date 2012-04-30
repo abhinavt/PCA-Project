@@ -90,6 +90,8 @@ void create_tfc_file(int algoType, int n){
 	for (int i=0; i< num_inputs; i++)	
 		output << char(i + 97) << " ";
 	output << '\n';
+	output << "BEGIN" << '\n';
+	
 
 	if (algoType == (OUTPUT_MATCHING) ){
 			for (int count = 0; count < (int) op2in_gates.controls.size(); count++) {
