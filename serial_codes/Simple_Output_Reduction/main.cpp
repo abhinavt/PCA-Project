@@ -3,6 +3,10 @@
 #include "read_file.c"
 #include "simple_algo.cpp"
 
+#include <fstream>
+
+
+
 int main() {
 
 
@@ -14,16 +18,9 @@ int main() {
 	
 	read_file ( input, output, n_vars ) ;
 
-
-
-
-
-
-
-
-
-
 	int ret = simple_algo(input,output,n_vars);
+
+	cout << "number of gates : " << ret << endl;
 
 	return 0 ;
 

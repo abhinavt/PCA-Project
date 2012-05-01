@@ -20,6 +20,9 @@ int main() {
 
 	/* create an array of index locations for output bits */
 	int* index = new int[n_vars];	
+	for (int i=0; i<n_vars; i++)
+		index[i] = i;
+
 
 	/* doing factorial to find out total number of permutation possible */
 	int factorial_n = factorial(n_vars);
@@ -50,24 +53,68 @@ int main() {
 	int perm_row = 0;
 	int row = 0;
 	int output_row = 0;
-	while (perm_row < factorial_n){
+
+	while (perm_row <factorial_n){
+		vector< boost::dynamic_bitset<> > temp_output = output;
+	
+	for (int i=0; i<n_vars; i++)	
+		cout << permuted_index[perm_row][i] << " ";
+	cout << '\n';
+
 		while(row < (1<<n_vars)){
 			for (int i=0; i<n_vars; i++){
 				if(i != permuted_index[perm_row][i]){
-					for (int j=0; j<n_vars; j++){
+					for (int j=i+1; j<n_vars; j++){
 						if(i == permuted_index[perm_row][j]){
-							output[row][i] = output[row][i]^output[row][j];
-							output[row][j] = output[row][i]^output[row][j];
-							output[row][i] = output[row][i]^output[row][j]; 
-						}		
+							if (temp_output[row][i] != temp_output[row][j]){
+								temp_output[row].flip(i);
+								temp_output[row].flip(j);
+							}
+						}
 					}
 				}
 			}
 			row++;
 		}
-	int ret = simple_algo(input,output,n_vars);	
+
+	cout << "permuted output for thread " << endl;       
+	for (int r=0; r<(1<<n_vars); r++)
+	cout << temp_output[r] << endl;
+	cout << "-------------------" << endl;
+
+
+	int ret = simple_algo(input,temp_output,n_vars);
+
+	cout << " NUMBER OF GATES :: " 	<< ret << endl;
 	perm_row++;
+	row = 0;
 	}
+
+
+
+/*	while (perm_row < factorial_n){
+		vector< boost::dynamic_bitset<> > temp_output = output;
+		while(row < (1<<n_vars)){
+			for (int i=0; i<n_vars; i++){
+				if(i != permuted_index[perm_row][i]){
+					for (int j=i+1; j<n_vars; j++){
+						if(i == permuted_index[perm_row][j]){
+							if (temp_output[row][i] != temp_output[row][j]){
+								temp_output[row].flip(i);
+								temp_output[row].flip(j);
+							}
+						}
+					}
+				}
+			}
+			row++;
+		}
+	int ret = simple_algo(input,temp_output,n_vars);	
+	cout << "total number of gates : " << ret << endl;
+	perm_row++;
+        row = 0;
+	}
+*/
 	return 0 ;
 }
 

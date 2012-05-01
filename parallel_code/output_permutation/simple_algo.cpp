@@ -18,6 +18,9 @@ boost::dynamic_bitset<> Cq (string(n,'0'));
 boost::dynamic_bitset<> p (string(n,'0'));
 boost::dynamic_bitset<> q (string(n,'0'));
 */
+
+
+
 // Flipping the bits of first minterm:
 if (output[0].any()){
 no_of_gates = no_of_gates + output[0].count();
@@ -26,8 +29,9 @@ no_of_gates = no_of_gates + output[0].count();
             for (int j=0; j< (1<<n); j++){
                 output[j].flip(i);           
             }
-	cout << "Cp for first minterm : " << Cp << endl;
-	add_toff_gate( Cp , i , true, OUTPUT_MATCHING );
+//	cout << " debug " << endl;
+//	cout << "Cp for first minterm : " << Cp << endl;
+//	add_toff_gate( Cp , i , true, OUTPUT_MATCHING );
         }
     }
 }
@@ -79,7 +83,7 @@ for (int i=1; i< (1<<n) ; i++){
 	//	cout << " no_of_gates get called " << endl;
 			no_of_gates++;
 	//		cout << "toffoli controls : " << Cp << endl;
-			add_toff_gate( Cp , j , true, OUTPUT_MATCHING );		
+	//		add_toff_gate( Cp , j , true, OUTPUT_MATCHING );		
 		// Applying the toffoli corresponding to "p":
 	        if (Cp.any()){
 	            for (int jj=i; jj< (1<<n); jj++){
@@ -122,7 +126,7 @@ for (int i=1; i< (1<<n) ; i++){
 	//	cout << " no_of_gates get called " << endl;
 				no_of_gates++;
 	//		cout<< "toffoli controls : " << Cp << endl;
-				add_toff_gate( Cq , j , true, OUTPUT_MATCHING );
+	//			add_toff_gate( Cq , j , true, OUTPUT_MATCHING );
 	
 		// Applying the toffoli corresponding to "p":
 	        if (Cq.any()){
@@ -151,12 +155,14 @@ for (int i=1; i< (1<<n) ; i++){
     } 
 }  
 
-/*cout << "final output " << endl;       
-for (int row=0; row<(1<<n); row++){
-		cout << output[row];
+/*cout << "final output " << endl;    */    
+/*for (int row=0; row<(1<<n); row++){
+		log << output[row] << endl;
 cout << '\n';
-}
-*/	
+}*/
+
+
+	
 return no_of_gates;
 
 }
