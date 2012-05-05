@@ -8,5 +8,5 @@
 #include <bitset>
 #include <boost/dynamic_bitset.hpp>
 #include <vector>
-
+#include "create_result.h"
 #endif

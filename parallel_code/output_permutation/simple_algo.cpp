@@ -3,7 +3,7 @@
 
 int simple_algo( vector <boost::dynamic_bitset<> >& input, vector <boost::dynamic_bitset<> >& output, int& n, int& no_of_gates, 
 		 boost::dynamic_bitset<>& Cp, boost::dynamic_bitset<>& Cq, boost::dynamic_bitset<>& temp_Cp,
-		 boost::dynamic_bitset<>& temp_Cq, boost::dynamic_bitset<>& p, boost::dynamic_bitset<>& q)
+		 boost::dynamic_bitset<>& temp_Cq, boost::dynamic_bitset<>& p, boost::dynamic_bitset<>& q, struct toffgate& op2in_gates, vector <circuit>& circuit)
 {
 
 
@@ -31,7 +31,7 @@ no_of_gates = no_of_gates + output[0].count();
             }
 //	cout << " debug " << endl;
 //	cout << "Cp for first minterm : " << Cp << endl;
-//	add_toff_gate( Cp , i , true, OUTPUT_MATCHING );
+	add_toff_gate( Cp , i , true, OUTPUT_MATCHING, op2in_gates, circuit );
         }
     }
 }
@@ -83,7 +83,7 @@ for (int i=1; i< (1<<n) ; i++){
 	//	cout << " no_of_gates get called " << endl;
 			no_of_gates++;
 	//		cout << "toffoli controls : " << Cp << endl;
-	//		add_toff_gate( Cp , j , true, OUTPUT_MATCHING );		
+			add_toff_gate( Cp , j , true, OUTPUT_MATCHING, op2in_gates, circuit);		
 		// Applying the toffoli corresponding to "p":
 	        if (Cp.any()){
 	            for (int jj=i; jj< (1<<n); jj++){
@@ -126,7 +126,7 @@ for (int i=1; i< (1<<n) ; i++){
 	//	cout << " no_of_gates get called " << endl;
 				no_of_gates++;
 	//		cout<< "toffoli controls : " << Cp << endl;
-	//			add_toff_gate( Cq , j , true, OUTPUT_MATCHING );
+				add_toff_gate( Cq , j , true, OUTPUT_MATCHING, op2in_gates, circuit );
 	
 		// Applying the toffoli corresponding to "p":
 	        if (Cq.any()){

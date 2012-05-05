@@ -19,6 +19,8 @@ int main() {
 	read_file ( input, output, n_vars ) ;
 
 	int ret = simple_algo(input,output,n_vars);
+	
+	create_tfc_file(OUTPUT_MATCHING, n_vars);
 
 	cout << "number of gates : " << ret << endl;
 

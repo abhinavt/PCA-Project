@@ -17,6 +17,7 @@
 #include <vector>
 #include <fstream>
 #include <list>
+
 using namespace std;
 
 
@@ -32,12 +33,26 @@ enum {
 //vector<boost::dynamic_bitset<> > ip2op_gates;
 
 struct toffgate{
+	vector<bool> isSWAP;
 	vector<boost::dynamic_bitset<> > controls;
 	vector<int> target;
 };
 
-toffgate op2in_gates;
-toffgate ip2op_gates;
+struct circuit{
+	int id;
+	struct toffgate gates; 
+};
+
+
+struct templ{
+	circuit reference;
+	circuit replacement;
+};
+
+
+
+//toffgate op2in_gates;
+//toffgate ip2op_gates;
 
 
 /**
@@ -46,15 +61,16 @@ toffgate ip2op_gates;
 */
 
 
-void add_toff_gate(boost::dynamic_bitset<> & C, int tar, bool save_front, int algoType){
+void add_toff_gate(boost::dynamic_bitset<> & C, int tar, bool save_front, int algoType, struct toffgate &op2in_gates, vector <circuit>& circuit){
 
-	if (save_front == 1){				
-		op2in_gates.controls.push_back(C);
-		op2in_gates.target.push_back(tar);
+	if (save_front == 1){			
+		circuit.gates.op2in_gates.isSWAP.push_back(0);					
+		circuit.gates.op2in_gates.controls.push_back(C);
+		circuit.gates.op2in_gates.target.push_back(tar);
 		}
 	else{
-		ip2op_gates.controls.push_back(C);
-		ip2op_gates.target.push_back(tar);	
+	//	ip2op_gates.controls.push_back(C);
+	//	ip2op_gates.target.push_back(tar);	
 	}
 }
 
@@ -65,9 +81,9 @@ void add_toff_gate(boost::dynamic_bitset<> & C, int tar, bool save_front, int al
 */
 
 
-void create_tfc_file(int algoType, int n){
+void create_tfc_file(int algoType, int n, struct toffgate &op2in_gates, vector <circuit>& circuit, int& id){
 
-
+if (circuit.id==0){
 	int num_inputs;
 	ofstream output ("output.tfc");
 
@@ -94,20 +110,21 @@ void create_tfc_file(int algoType, int n){
 	
 
 	if (algoType == (OUTPUT_MATCHING) ){
-			for (int count = 0; count < (int) op2in_gates.controls.size(); count++) {
-				int number_of_controls = op2in_gates.controls[count].count();
+			for (int count = 0; count < (int) circuit.gates.op2in_gates.controls.size(); count++) {
+				int number_of_controls = circuit.gates.op2in_gates.controls[count].count();
 				output << "tf" << (number_of_controls + 1) << " ";
 				for (int i = 0; i < num_inputs; ++i){
-					if (op2in_gates.controls[count].test(i)) {
+					if (circuit.gates.op2in_gates.controls[count].test(i)) {
 						 output <<  char(i + 97) << " " ;
 					}
 				}
-	 			output <<  char(op2in_gates.target[count] + 97) << " " ;
+	 			output <<  char(circuit.gates.op2in_gates.target[count] + 97) << " " ;
 				output << '\n';
 			}
 			output << "END";	
-			output.close();		
+			output.close();			
 	}
+}
 	/*
 	else if (algoType == (INPUT_MATCHING) ){
 			for (int count = 0; count < ip2op_gates.controls.size(); count++) {
@@ -148,7 +165,6 @@ void create_tfc_file(int algoType, int n){
 			output.close();	
 	}
 */
-
 }
 
 #endif  // _MY_LIB_H_

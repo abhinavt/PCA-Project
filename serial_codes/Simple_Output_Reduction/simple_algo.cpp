@@ -20,7 +20,7 @@ no_of_gates = no_of_gates + output[0].count();
                 output[j].flip(i);           
             }
 //	cout << "Cp for first minterm : " << Cp << endl;
-//	add_toff_gate( Cp , i , true, OUTPUT_MATCHING );
+	add_toff_gate( Cp , i , true, OUTPUT_MATCHING );
         }
     }
 }
@@ -72,7 +72,7 @@ for (int i=1; i< (1<<n) ; i++){
 	//	cout << " no_of_gates get called " << endl;
 			no_of_gates++;
 	//		cout << "toffoli controls : " << Cp << endl;
-	//		add_toff_gate( Cp , j , true, OUTPUT_MATCHING );		
+			add_toff_gate( Cp , j , true, OUTPUT_MATCHING );		
 		// Applying the toffoli corresponding to "p":
 	        if (Cp.any()){
 	            for (int jj=i; jj< (1<<n); jj++){
@@ -115,7 +115,7 @@ for (int i=1; i< (1<<n) ; i++){
 	//	cout << " no_of_gates get called " << endl;
 				no_of_gates++;
 	//		cout<< "toffoli controls : " << Cp << endl;
-	//			add_toff_gate( Cq , j , true, OUTPUT_MATCHING );
+				add_toff_gate( Cq , j , true, OUTPUT_MATCHING );
 	
 		// Applying the toffoli corresponding to "p":
 	        if (Cq.any()){

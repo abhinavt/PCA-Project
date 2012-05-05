@@ -1,57 +1,7 @@
-v. a b c d 
-i. a b c d 
-o. a b c d 
+v. a b c 
+i. a b c 
+o. a b c 
 BEGIN
-tf1 a 
-tf3 b c a 
-tf1 c 
-tf3 a c b 
-tf2 c a 
-tf3 b c a 
-tf2 a c 
-tf3 a c b 
-tf3 b c a 
-tf2 b c 
-tf2 c a 
-tf3 a c b 
-tf3 a b c 
-tf2 c a 
-tf3 b c a 
-tf1 a 
-tf2 d c 
-tf2 c d 
-tf3 b c a 
-tf3 a c b 
-tf3 b c a 
-tf2 d c 
-tf3 b d a 
-tf3 a d b 
-tf3 b d a 
-tf1 d 
-tf2 d a 
-tf2 a d 
-tf3 a d b 
-tf3 b d a 
-tf2 b d 
-tf2 d a 
-tf3 a d b 
-tf3 a b d 
-tf3 b c a 
-tf3 a c b 
-tf3 b c a 
-tf2 d a 
-tf3 a d b 
-tf3 b d a 
-tf3 c d a 
-tf4 a c d b 
-tf4 b c d a 
-tf1 a 
-tf2 c b 
-tf2 b c 
-tf2 c b 
-tf3 b c a 
-tf3 a c b 
-tf3 b c a 
 tf1 c 
 tf2 c a 
 tf2 a c 
@@ -60,83 +10,12 @@ tf3 b c a
 tf3 a c b 
 tf3 b c a 
 tf1 a 
-tf2 d b 
-tf2 b d 
-tf3 b c a 
-tf3 a c b 
-tf3 b c a 
-tf2 d b 
-tf4 b c d a 
-tf3 c d b 
-tf4 b c d a 
-tf1 d 
-tf2 d a 
-tf2 a d 
-tf3 b c a 
-tf3 a c b 
-tf3 b c a 
-tf2 d a 
-tf4 b c d a 
-tf3 c d b 
-tf4 b c d a 
-tf1 a 
-tf2 d b 
-tf2 b d 
-tf3 b d c 
-tf3 c d b 
-tf2 c d 
-tf2 d a 
-tf3 a d c 
-tf3 a c d 
-tf4 a c d b 
-tf4 b c d a 
-tf3 b c d 
-tf2 d a 
-tf3 a d b 
-tf4 a b d c 
-tf4 a b c d 
-tf3 a d b 
-tf4 a c d b 
-tf4 a b d c 
-tf3 c d b 
-tf4 a c d b 
-tf4 b c d a 
-tf1 c 
-tf2 c a 
-tf2 a c 
-tf2 d b 
-tf2 b d 
-tf2 c a 
-tf3 b c a 
-tf3 a c b 
-tf3 b c a 
-tf2 d b 
-tf4 b c d a 
-tf3 c d b 
-tf4 b c d a 
-tf1 a 
-tf2 d b 
-tf2 b d 
-tf3 b c a 
-tf3 a c b 
-tf3 b c a 
-tf2 d b 
-tf4 b c d a 
-tf3 c d b 
-tf4 b c d a 
-tf1 d 
-tf2 d a 
-tf2 a d 
 tf2 c b 
 tf2 b c 
 tf2 c b 
 tf3 b c a 
 tf3 a c b 
 tf3 b c a 
-tf2 d a 
-tf4 b c d a 
-tf3 c d b 
-tf4 b c d a 
 tf1 b 
 tf2 b a 
 tf2 a b 
@@ -144,169 +23,25 @@ tf2 b a
 tf3 b c a 
 tf3 a c b 
 tf3 b c a 
-tf1 d 
-tf2 d a 
-tf2 a d 
-tf3 a d b 
-tf3 b d a 
-tf2 b d 
-tf2 d a 
-tf3 a d b 
-tf3 a b d 
-tf3 a d c 
-tf3 c d a 
-tf2 c d 
-tf2 d a 
-tf3 a d c 
-tf3 a c d 
+tf1 a 
 tf3 b c a 
-tf2 d a 
-tf3 a d c 
-tf4 b c d a 
-tf4 a b d c 
-tf3 c d a 
+tf3 a c b 
+tf3 b c a 
 tf1 b 
 tf2 b a 
 tf2 a b 
 tf2 b a 
-tf2 d c 
-tf2 c d 
 tf3 b c a 
 tf3 a c b 
 tf3 b c a 
-tf2 d c 
-tf3 b d a 
-tf3 a d b 
-tf3 b d a 
-tf1 d 
-tf2 d a 
-tf2 a d 
-tf3 a d b 
-tf3 b d a 
-tf2 b d 
-tf2 d a 
-tf3 a d b 
-tf3 a b d 
-tf3 b c a 
-tf3 a c b 
-tf3 b c a 
-tf2 d a 
-tf3 a d b 
-tf3 b d a 
-tf3 c d a 
-tf4 a c d b 
-tf4 b c d a 
-tf1 c 
-tf2 c a 
-tf2 a c 
-tf2 c a 
-tf3 b c a 
-tf3 a c b 
-tf3 b c a 
-tf1 d 
-tf2 d a 
-tf2 a d 
-tf3 a d c 
-tf3 c d a 
-tf2 c d 
-tf3 b c a 
-tf3 a c b 
-tf2 d b 
-tf3 b d c 
-tf3 b c d 
-tf2 d a 
-tf3 a d b 
-tf4 a b d c 
-tf4 a b c d 
-tf2 d a 
-tf3 a d c 
-tf4 b c d a 
-tf3 b d c 
-tf4 b c d a 
-tf4 a b d c 
-tf4 b c d a 
-tf3 c d b 
-tf4 a c d b 
-tf4 b c d a 
-tf1 d 
-tf2 d a 
-tf2 a d 
-tf3 b c a 
-tf3 a c b 
-tf3 b c a 
-tf2 d a 
-tf4 b c d a 
-tf3 c d b 
-tf4 b c d a 
-tf1 d 
-tf2 d a 
-tf2 a d 
-tf3 b c a 
-tf3 a c b 
-tf3 b c a 
-tf2 d a 
-tf4 b c d a 
-tf3 c d b 
-tf4 b c d a 
-tf1 d 
-tf2 d a 
-tf2 a d 
-tf3 a d c 
-tf3 c d a 
-tf2 c d 
-tf3 b c a 
-tf3 a c b 
-tf2 d b 
-tf3 b d c 
-tf3 b c d 
-tf2 d a 
-tf3 a d b 
-tf4 a b d c 
-tf4 a b c d 
-tf2 d a 
-tf3 a d c 
-tf4 b c d a 
-tf3 b d c 
-tf4 b c d a 
-tf4 a b d c 
-tf4 b c d a 
-tf3 c d b 
-tf4 a c d b 
-tf4 b c d a 
-tf1 c 
-tf2 c a 
-tf2 a c 
-tf2 d b 
-tf2 b d 
-tf2 c a 
-tf3 b c a 
-tf3 a c b 
-tf3 b c a 
-tf2 d b 
-tf4 b c d a 
-tf3 c d b 
-tf4 b c d a 
-tf1 d 
-tf2 d a 
-tf2 a d 
-tf3 b c a 
-tf3 a c b 
-tf3 b c a 
-tf2 d a 
-tf4 b c d a 
-tf3 c d b 
-tf4 b c d a 
-tf1 d 
-tf2 d a 
-tf2 a d 
+
+tf1 b 
+tf2 b a 
+tf2 a b 
 tf2 c b 
 tf2 b c 
-tf2 c b 
 tf3 b c a 
+tf2 c b 
 tf3 a c b 
 tf3 b c a 
-tf2 d a 
-tf4 b c d a 
-tf3 c d b 
-tf4 b c d a 
 END

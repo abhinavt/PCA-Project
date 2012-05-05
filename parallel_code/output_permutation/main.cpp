@@ -1,7 +1,7 @@
 #include "includes.h"
 #include <fstream>
 #include <sstream>
-#define NUM_THREADS	9
+#define NUM_THREADS	1
 
 
 int factorial (int a);
@@ -20,7 +20,7 @@ struct algo_fields{
 struct thread_data{
    int  thread_id;
    int  n_vars;
-//   int  factorial_n;
+   int  factorial_n;
 //   int  start;
 //   int  end;
 //   algo_fields parameters;
@@ -90,13 +90,13 @@ int main(int argc, char *argv[]) {
 	/* creating threads*/
 
 //	int interval = factorial_n/NUM_THREADS;
-
+	int factorial_n = factorial(n_vars);
 	int rc;
 	for(int t=0;t<NUM_THREADS;t++) {
 
 		thread_data_values[t].thread_id 	= 	t;
 		thread_data_values[t].n_vars 		= 	n_vars;
-//		thread_data_values[t].factorial_n 	= 	factorial_n;
+		thread_data_values[t].factorial_n 	= 	factorial_n;
 //		thread_data_values[t].start 		= 	interval*t;
 //		thread_data_values[t].end		= 	(interval*t) + (interval-1);
 
@@ -141,7 +141,7 @@ void *start_output_permutation(void *threadarg){
 
 	taskid 		= 	thread_pointer->thread_id;
 	n_vars 		= 	thread_pointer->n_vars;
-//	factorial_n 	= 	thread_pointer->factorial_n;
+	factorial_n 	= 	thread_pointer->factorial_n;
 //	start		= 	thread_pointer->start;
 //	end	 	= 	thread_pointer->end;
 
@@ -156,6 +156,10 @@ void *start_output_permutation(void *threadarg){
 	boost::dynamic_bitset<> temp_Cq (string(n,'0'));
 	boost::dynamic_bitset<> p (string(n,'0'));
 	boost::dynamic_bitset<> q (string(n,'0'));
+	toffgate op2in_gates;
+//	toffgate ip2op_gates;		note: for bidirectional
+	vector<circuit> circuit;
+
 
 	int local_minimum=0;
 	int local_maximum=0;
@@ -168,11 +172,11 @@ void *start_output_permutation(void *threadarg){
 	int* index = new int[n_vars];
 	int* index_local_min = new int[n_vars];	
 	int* index_local_max = new int[n_vars];	
-	index[0] = taskid;
+//	index[0] = taskid;
 
 
-	for (int i=1; (i < n_vars) ; i++){
-		if (i != taskid)
+	for (int i=0; (i < n_vars) ; i++){
+//		if (i != taskid)
 			index[i] = i;
 	}
 	
@@ -181,8 +185,66 @@ void *start_output_permutation(void *threadarg){
 	ofstream log (s1.str().c_str());
 
 	sort (index,index+n_vars);
-	do {
+
+	int id = 0;
+	int temp=0;
+	for (int iter=0; iter< factorial_n/NUM_THREADS; iter++){
+		vector< boost::dynamic_bitset<> > temp_output = output;
+		if (iter==0 && (temp<taskid)){
+			for (int i=0; i<taskid; i++)
+				next_permutation (index,index+n_vars);			
+		}	
+		else{
+			for (int i=0; i<NUM_THREADS; i++)
+				next_permutation (index,index+n_vars);	
+		}	
 		
+
+
+		while(row < (1<<n_vars)){
+			for (int i=0; i<n_vars; i++){
+				if(i != index[i]){
+					for (int j=i+1; j<n_vars; j++){
+						if(i == index[j]){
+							if (temp_output[row][i] != temp_output[row][j]){
+								temp_output[row].flip(i);
+								temp_output[row].flip(j);
+							}
+						}
+					}
+				}
+			}
+		row++;
+		}
+		row = 0;
+	
+		cout << " thread " << taskid << " is here" << endl;
+		circuit.id = id;
+		int ret = simple_algo(input,temp_output,n_vars, no_of_gates, Cp, Cq, temp_Cp, temp_Cq, p, q, op2in_gates, circuit );
+		id++;
+		create_tfc_file(OUTPUT_MATCHING, n_vars, op2in_gates, circuit, id);
+
+		log << "thread " << taskid << " total gates : " << ret << endl;
+		cout << " NUMBER OF GATES :: " 	<< ret << endl;
+
+		if ((ret < local_minimum) || (local_minimum == 0)){		
+			local_minimum = ret;	
+			for (int i=0; i<n_vars; i++)
+				index_local_min[i] = index[i]; 
+		}
+
+		if ((ret > local_maximum) || (local_maximum == 0)){		
+			local_maximum = ret;	
+			for (int i=0; i<n_vars; i++)
+				index_local_max[i] = index[i]; 
+		}
+	}
+
+
+/*
+
+	do {
+		cout << "thread : " << taskid << endl;
 		for (int i=0; i<n_vars; i++)
 			cout << index[i] << "  ";
 		cout << '\n';
@@ -223,6 +285,9 @@ void *start_output_permutation(void *threadarg){
 	
 		row = 0;
 	} while ( next_permutation (index,index+n_vars) );
+
+*/
+
 	delete[] index;
 	
 	log << "###### thread " << taskid << " local_minimum number of gates : " << local_minimum << " for index " ;
