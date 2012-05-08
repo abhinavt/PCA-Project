@@ -173,10 +173,10 @@ for (int i=1; i< (1<<n) ; i++){
 }  
 
 /*cout << "final output " << endl;    */    
-for (int row=0; row<(1<<n); row++){
-		cout << output[row] << endl;
-cout << '\n';
-}
+//for (int row=0; row<(1<<n); row++){
+//		cout << output[row] << endl;
+//cout << '\n';
+
 
 
 	

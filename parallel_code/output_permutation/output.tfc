@@ -2,17 +2,8 @@ v. a b c d
 i. a b c d 
 o. a b c d 
 BEGIN
-tf1 b 
-tf2 b a 
-tf2 a b 
-tf2 b a 
-tf2 d c 
-tf2 c d 
+tf1 a 
 tf3 b c a 
 tf3 a c b 
 tf3 b c a 
-tf2 d c 
-tf3 b d a 
-tf3 a d b 
-tf3 b d a 
 END

@@ -93,12 +93,14 @@ int main(int argc, char *argv[]) {
 	int factorial_n = factorial(n_vars);
 	int rc;
 	for(int t=0;t<NUM_THREADS;t++) {
-
+	//	cout << " thread T :: " << t << endl;
 		thread_data_values[t].thread_id 	= 	t;
 		thread_data_values[t].n_vars 		= 	n_vars;
 		thread_data_values[t].factorial_n 	= 	factorial_n;
 //		thread_data_values[t].start 		= 	interval*t;
 //		thread_data_values[t].end		= 	(interval*t) + (interval-1);
+
+//		cout << "thread_data_values[t].thread_id :: " << thread_data_values[t].thread_id << endl;
 
 //		printf("Creating thread %d\n", t);
 		rc = pthread_create(&threads[t], NULL, start_output_permutation, (void *) &thread_data_values[t]);	
@@ -140,6 +142,8 @@ void *start_output_permutation(void *threadarg){
 	int taskid, n_vars, factorial_n, start, end;
 
 	taskid 		= 	thread_pointer->thread_id;
+// cout << "thread_pointer->thread_id : " << thread_pointer->thread_id << endl;
+
 	n_vars 		= 	thread_pointer->n_vars;
 	factorial_n 	= 	thread_pointer->factorial_n;
 //	start		= 	thread_pointer->start;
@@ -186,7 +190,8 @@ void *start_output_permutation(void *threadarg){
 	}
 	
 	stringstream s1; // str( taskid);
-	s1 << "output_thread_id-" << taskid <<".txt";
+//	cout << "thread : " << taskid << endl;
+	s1 << "./results/output_thread_id-" << taskid <<".txt";
 	ofstream log (s1.str().c_str());
 
 	sort (index,index+n_vars);
@@ -225,19 +230,53 @@ void *start_output_permutation(void *threadarg){
 		}
 		row = 0;
 	
-		cout << " thread " << taskid << " is here" << endl;
+	//	cout << " thread " << taskid << " is here" << endl;
 		struct circuit circuit;
 		circuit.id = id;
 	//	f_circuits.push_back(circuit);
 		int ret = simple_algo(input,temp_output,n_vars, no_of_gates, Cp, Cq, temp_Cp, temp_Cq, p, q, op2in_gates, circuit, id);
 		circuit.ng = ret;
 		f_circuits.push_back(circuit);
+
+	//	cout << "sizeof f_circuits  :: " << (int)f_circuits.size() << endl;
+
 	//	id++;
 	//	create_tfc_file(OUTPUT_MATCHING, n_vars, op2in_gates, circuit, id);
 
 		log << "thread " << taskid << " total gates : " << ret << endl;
-		cout << " NUMBER OF GATES :: " 	<< ret << endl;
+	//	cout << " NUMBER OF GATES :: " 	<< ret << endl;
+
+		if ((int)f_circuits.size() == 1)
+			local_maximum = f_circuits.front().ng;
+
+
+		if ( (int)f_circuits.size() > 1 ){
+			if (local_maximum < f_circuits.back().ng){
+//				cout << "  local_maximum > f_circuits.back().ng   " << endl;
+//				cout << "local maximum :: " << local_maximum << endl;
+//				cout << "f_circuits.back().ng  :: " << f_circuits.back().ng << endl; 
+				local_maximum = f_circuits.back().ng;
+			}
+		}
+
+
+		if ( (int)f_circuits.size() > 1 ){
+			if (f_circuits.front().ng > f_circuits.back().ng){
+//				cout << "f_circuits.front().ng :: " << f_circuits.front().ng << endl;
+//				cout << "f_circuits.back().ng  :: " << f_circuits.back().ng << endl; 
+				f_circuits.pop_front();
+//				cout << " minimum " << endl; 
+			}
+			else{
+				f_circuits.pop_back();
+			//	cout << " max " << endl;
+			}
+		}
+
+
+/*
 		if (id==0){
+			cout << "inside id = 0" << endl;
 			local_minimum = ret;
 			local_maximum = ret;
 		//	cout << "set local min" << endl;
@@ -253,79 +292,35 @@ void *start_output_permutation(void *threadarg){
 				index_local_min[i] = index[i]; 
 		}
 
-		if (((ret > local_maximum) || (local_maximum == 0)) && (id>0)){		
+		if (((ret >= local_maximum) || (local_maximum == 0)) && (id>0)){		
 			local_maximum = ret;	
 			f_circuits.pop_back();	
 
 			for (int i=0; i<n_vars; i++)
 				index_local_max[i] = index[i]; 
 		}
-
+*/
 		id++;
 	}
 
 
-/*
-
-	do {
-		cout << "thread : " << taskid << endl;
-		for (int i=0; i<n_vars; i++)
-			cout << index[i] << "  ";
-		cout << '\n';
-
-
-		vector< boost::dynamic_bitset<> > temp_output = output;
-		while(row < (1<<n_vars)){
-			for (int i=0; i<n_vars; i++){
-				if(i != index[i]){
-					for (int j=i+1; j<n_vars; j++){
-						if(i == index[j]){
-							if (temp_output[row][i] != temp_output[row][j]){
-								temp_output[row].flip(i);
-								temp_output[row].flip(j);
-							}
-						}
-					}
-				}
-			}
-		row++;
-		}
-		
-		cout << " thread " << taskid << " is here" << endl;
-		int ret = simple_algo(input,temp_output,n_vars, no_of_gates, Cp, Cq, temp_Cp, temp_Cq, p, q );
-		log << "thread " << taskid << " total gates : " << ret << endl;
-		cout << " NUMBER OF GATES :: " 	<< ret << endl;
-		if ((ret < local_minimum) || (local_minimum == 0)){		
-			local_minimum = ret;	
-			for (int i=0; i<n_vars; i++)
-				index_local_min[i] = index[i]; 
-		}
-
-		if ((ret > local_maximum) || (local_maximum == 0)){		
-			local_maximum = ret;	
-			for (int i=0; i<n_vars; i++)
-				index_local_max[i] = index[i]; 
-		}
-	
-		row = 0;
-	} while ( next_permutation (index,index+n_vars) );
-
-*/
 	list<circuit>::iterator it = f_circuits.begin();
 	create_tfc_file(OUTPUT_MATCHING, n_vars, op2in_gates, f_circuits.front().gates, id);
-	cout << "minimum gate :: " << it->ng << endl;
-
+//	cout << "minimum gate :: " << it->ng << endl;
+	cout << "local maximum :: " << local_maximum << endl; 
 	cout << "minimum gate :: " << f_circuits.front().ng << endl;
+
+//	cout << "final sizeof f_circuits  :: " << (int)f_circuits.size() << endl;
 
 	delete[] index;
 	
-	log << "###### thread " << taskid << " local_minimum number of gates : " << local_minimum << " for index " ;
-	for (int i=0; i<n_vars;i++)
-		log << index_local_min[i] << "  ";
+	log << "###### thread " << taskid << " local_minimum number of gates : " << f_circuits.front().ng;//  << " for index " ;
+//	for (int i=0; i<n_vars;i++)
+//		log << index_local_min[i] << "  ";
 	log << '\n';	
-	log << "###### thread " << taskid << " local_maximum number of gates : " << local_maximum << " for index " ;
-	for (int i=0; i<n_vars;i++)
-		log << index_local_max[i] << "  ";
+	log << "###### thread " << taskid << " local_maximum number of gates : " << local_maximum; // << " for index " ;
+//	for (int i=0; i<n_vars;i++)
+//		log << index_local_max[i] << "  ";
 
 	delete[] index_local_min;
 	delete[] index_local_max;
