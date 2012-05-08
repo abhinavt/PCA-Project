@@ -3,12 +3,14 @@
 
 int simple_algo( vector <boost::dynamic_bitset<> >& input, vector <boost::dynamic_bitset<> >& output, int& n, int& no_of_gates, 
 		 boost::dynamic_bitset<>& Cp, boost::dynamic_bitset<>& Cq, boost::dynamic_bitset<>& temp_Cp,
-		 boost::dynamic_bitset<>& temp_Cq, boost::dynamic_bitset<>& p, boost::dynamic_bitset<>& q)
+		 boost::dynamic_bitset<>& temp_Cq, boost::dynamic_bitset<>& p, boost::dynamic_bitset<>& q, struct toffgate& op2in_gates, 
+		 /*vector <circuit>& circuit list<circuit>& circuit*/ struct circuit& circuit, int& id /*, int* index*/ )
 {
 
-
+//struct circuit circuit;
 no_of_gates =0;
-
+//cout << "index" << endl;
+//cout << index[0] << index[1] << index[2] << endl;
 //cout << "@@@@@@@@@@@@@ entered simple algo routine" << endl;
 
 /*int no_of_gates =0;
@@ -18,6 +20,14 @@ boost::dynamic_bitset<> Cq (string(n,'0'));
 boost::dynamic_bitset<> p (string(n,'0'));
 boost::dynamic_bitset<> q (string(n,'0'));
 */
+
+/*
+for (int row=0; row<(1<<n); row++){
+		cout << output[row] << endl;
+cout << '\n';
+}
+*/
+
 // Flipping the bits of first minterm:
 if (output[0].any()){
 no_of_gates = no_of_gates + output[0].count();
@@ -26,8 +36,9 @@ no_of_gates = no_of_gates + output[0].count();
             for (int j=0; j< (1<<n); j++){
                 output[j].flip(i);           
             }
-	cout << "Cp for first minterm : " << Cp << endl;
-	add_toff_gate( Cp , i , true, OUTPUT_MATCHING );
+//	cout << " debug " << endl;
+//	cout << "Cp for first minterm : " << Cp << endl;
+	add_toff_gate( Cp , i , true, OUTPUT_MATCHING, op2in_gates, circuit, id );
         }
     }
 }
@@ -67,10 +78,14 @@ for (int i=1; i< (1<<n) ; i++){
         if (p[j]==1){           
 		for (int k=0; k < n; k++){
                     if (output[i].test(k) == 1 )  {
-                         if( (k==j) )
+                         if( (k==j) ){
                              Cp.reset(k);
-                         else
+			//     Cq.reset(index[k]);
+			}
+                         else{				
                              Cp.set(k);
+			//     Cq.set(index[k]);
+			}
                      }
         	}
       	//	cout << "Cp for i : " << i << " j : " << j << " cp : " << Cp << endl;
@@ -79,7 +94,8 @@ for (int i=1; i< (1<<n) ; i++){
 	//	cout << " no_of_gates get called " << endl;
 			no_of_gates++;
 	//		cout << "toffoli controls : " << Cp << endl;
-			add_toff_gate( Cp , j , true, OUTPUT_MATCHING );		
+			add_toff_gate( Cp , j , true, OUTPUT_MATCHING, op2in_gates, circuit, id);	// test edit
+	//	Cq.reset();	// test edit		
 		// Applying the toffoli corresponding to "p":
 	        if (Cp.any()){
 	            for (int jj=i; jj< (1<<n); jj++){
@@ -110,10 +126,14 @@ for (int i=1; i< (1<<n) ; i++){
 	if (q[j]==1){
         	for (int k=0; k <n; k++){
                     if (output[i].test(k) == 1)   {
-                         if( (k==j) )
+                         if( (k==j) ){
                              Cq.reset(k);
-                         else
+		//	     Cp.reset(index[k]);
+			 }
+                         else{
                              Cq.set(k);
+		//	     Cp.set(index[k]);
+			 }
                     }
             	}   
        //	 cout << "Cq for i : " << i << " j : " << j << " cq :" << Cq << endl;
@@ -122,7 +142,8 @@ for (int i=1; i< (1<<n) ; i++){
 	//	cout << " no_of_gates get called " << endl;
 				no_of_gates++;
 	//		cout<< "toffoli controls : " << Cp << endl;
-				add_toff_gate( Cq , j , true, OUTPUT_MATCHING );
+				add_toff_gate( Cq , j , true, OUTPUT_MATCHING, op2in_gates, circuit, id );	// test edit
+	//	Cp.reset();	// test edit
 	
 		// Applying the toffoli corresponding to "p":
 	        if (Cq.any()){
@@ -151,12 +172,14 @@ for (int i=1; i< (1<<n) ; i++){
     } 
 }  
 
-/*cout << "final output " << endl;       
+/*cout << "final output " << endl;    */    
 for (int row=0; row<(1<<n); row++){
-		cout << output[row];
+		cout << output[row] << endl;
 cout << '\n';
 }
-*/	
+
+
+	
 return no_of_gates;
 
 }

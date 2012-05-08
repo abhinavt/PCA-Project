@@ -1,0 +1,14 @@
+
+ Performance counter stats for './main.o':
+
+ 81925208.694267  task-clock-msecs         #      3.937 CPUs 
+        8495202  context-switches         #      0.000 M/sec
+           2949  CPU-migrations           #      0.000 M/sec
+            735  page-faults              #      0.000 M/sec
+ 22178873951283420  cycles                   # 270720.994 M/sec
+ 22178873951283420  instructions             #      1.000 IPC  
+              0  cache-references         #      0.000 M/sec
+              0  cache-misses             #      0.000 M/sec
+
+ 20811.031945852  seconds time elapsed
+

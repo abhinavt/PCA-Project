@@ -1,0 +1,14 @@
+v. a b c 
+i. a b c 
+o. a b c 
+BEGIN
+tf1 b 
+tf2 b a 
+tf2 a b 
+tf2 c b 
+tf2 b c 
+tf3 b c a 
+tf2 c b 
+tf3 a c b 
+tf3 b c a 
+END

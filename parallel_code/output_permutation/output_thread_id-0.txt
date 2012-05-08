@@ -1,0 +1,26 @@
+thread 0 total gates : 10
+thread 0 total gates : 7
+thread 0 total gates : 10
+thread 0 total gates : 22
+thread 0 total gates : 10
+thread 0 total gates : 7
+thread 0 total gates : 13
+thread 0 total gates : 7
+thread 0 total gates : 10
+thread 0 total gates : 25
+thread 0 total gates : 10
+thread 0 total gates : 11
+thread 0 total gates : 18
+thread 0 total gates : 7
+thread 0 total gates : 10
+thread 0 total gates : 13
+thread 0 total gates : 13
+thread 0 total gates : 21
+thread 0 total gates : 18
+thread 0 total gates : 25
+thread 0 total gates : 10
+thread 0 total gates : 13
+thread 0 total gates : 13
+thread 0 total gates : 4
+###### thread 0 local_minimum number of gates : 4 for index 0  1  2  3  
+###### thread 0 local_maximum number of gates : 25 for index 1  3  0  2  

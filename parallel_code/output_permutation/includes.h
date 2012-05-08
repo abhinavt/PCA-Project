@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
+#include <list>
 #include <string>
 #include <bitset>
 #include <boost/dynamic_bitset.hpp>
@@ -15,6 +16,6 @@
 #include "create_result.h"
 #include "read_file.c"
 #include "simple_algo.cpp"
-
+using namespace std;
 
 #endif
